@@ -34,10 +34,6 @@ class ComposedTextTile extends StatelessWidget {
         maxLength: maxLength,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
           labelText: label,
           hintText: hint,
         ),

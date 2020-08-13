@@ -9,6 +9,8 @@ class MultiOptionControll extends StatelessWidget {
     @required this.onValueChanged,
     @required this.label,
     @required this.children,
+    @required this.selectedColor,
+    @required this.borderColor,
     Key key,
   }) : super(key: key);
 
@@ -16,6 +18,7 @@ class MultiOptionControll extends StatelessWidget {
   final void Function(int newVal) onValueChanged;
   final String label;
   final Map<int, Widget> children;
+  final Color selectedColor, borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,13 @@ class MultiOptionControll extends StatelessWidget {
           width: double.maxFinite,
           padding: const EdgeInsets.only(bottom: 16),
           child: CupertinoSegmentedControl<int>(
+            pressedColor: Get.theme.cardColor,
             groupValue: initValue,
             onValueChanged: onValueChanged,
             children: children,
+            selectedColor: selectedColor,
+            borderColor: borderColor,
+            unselectedColor: Get.theme.cardColor,
           ),
         ),
       ],

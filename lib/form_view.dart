@@ -1,26 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_utils/dialogs/dialogs.dart';
-import 'package:flutter_utils/dictionary.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 import 'package:get/get.dart';
 
-mixin WillPopForm {
-  Future<bool> willPop({
-    @required BuildContext context,
-    @required FormState formState,
-    @required bool isCreating,
-    @required bool hasChanged,
-  }) async {
-    if (isCreating) {
+mixin WillPopForm<T extends StatefulWidget> on State<T> {
+  GlobalKey<FormState> _formKey;
+
+  GlobalKey<FormState> get formKey => _formKey;
+
+  @override
+  void initState() {
+    _formKey = GlobalKey<FormState>();
+    super.initState();
+  }
+
+  @protected
+  bool get checkForChanges;
+
+  @protected
+  bool get isNewRecord;
+
+  Future<bool> willPop() async {
+    if (isNewRecord) {
       return true;
-    } else if (formState.validate()) {
-      formState.save();
-      if (hasChanged) {
-        final r = await Dialogs.showConfirmationDialog(
-          context: context,
-          title: Dictionary.atencao,
-          message: Dictionary.descartarAlteracoes,
-          positiveCaption: Dictionary.descartar,
-        );
+    } else if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      if (checkForChanges) {
+        final r = await Dialogs.showConfirmationDialog(context: context);
 
         return r ?? true;
       } else {
@@ -31,15 +36,12 @@ mixin WillPopForm {
     return false;
   }
 
-  void doSave({
-    @required BuildContext context,
-    @required FormState formState,
+  void saveForm({
     @required dynamic resultData,
   }) {
-    if (formState.validate()) {
-      formState.save();
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
       Get.back(result: resultData);
-      Navigator.of(context).pop<Object>(resultData);
     }
   }
 }

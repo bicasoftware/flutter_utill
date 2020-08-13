@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_utils/config_tiles/base_config_tile.dart';
+import 'package:flutter_utils/dictionary.dart';
 
 class TimePickerTile extends StatelessWidget {
   const TimePickerTile({
@@ -30,6 +31,9 @@ class TimePickerTile extends StatelessWidget {
         final newTime = await showTimePicker(
           context: context,
           initialTime: initialTime,
+          cancelText: Dictionary.cancelar,
+          confirmText: Dictionary.salvar,
+          helpText: label,
         );
 
         if (newTime != null && newTime != initialTime) {
