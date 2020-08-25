@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:get/get.dart';
+import 'package:flutter_utils/context_helper.dart';
 
 class ToggleableTile extends StatelessWidget {
   const ToggleableTile({
@@ -24,23 +24,23 @@ class ToggleableTile extends StatelessWidget {
         children: <Widget>[
           for (int i = 0; i < labels.length; i++)
             Container(
-              width: (Get.width / labels.length) - 16,
+              width: (context.width / labels.length) - 16,
               child: Text(
                 labels[i],
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: isSelected[i] ? Colors.white : Get.theme.primaryColor),
+                style: TextStyle(color: isSelected[i] ? Colors.white : context.theme.primaryColor),
               ),
             )
         ],
         isSelected: isSelected,
         onPressed: onPressed,
-        borderColor: Get.theme.primaryColor,
+        borderColor: context.theme.primaryColor,
         borderRadius: BorderRadius.circular(8),
-        selectedColor: Get.theme.primaryColor,
-        selectedBorderColor: Get.theme.primaryColor,
-        fillColor: Get.theme.primaryColor,
-        textStyle: Get.textTheme.button.copyWith(color: Get.theme.primaryColor),
+        selectedColor: context.theme.primaryColor,
+        selectedBorderColor: context.theme.primaryColor,
+        fillColor: context.theme.primaryColor,
+        textStyle: context.textTheme.button.copyWith(color: context.theme.primaryColor),
       ),
     );
   }

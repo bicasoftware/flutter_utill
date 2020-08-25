@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_utils/dictionary.dart';
-import 'package:get/get.dart';
+import 'package:flutter_utils/context_helper.dart';
 
 class Dialogs {
   static Future<void> showAwaitingDialog({
@@ -51,16 +51,16 @@ class Dialogs {
           FlatButton(
             child: Text(
               negativeCaption,
-              style: Theme.of(context).textTheme.button.copyWith(color: Colors.black87),
+              style: context.textTheme.button.copyWith(color: Colors.black87),
             ),
             onPressed: () {
-              Navigator.of(context).pop(false);
+              context.goBack(false);
             },
           ),
           FlatButton(
             child: Text(positiveCaption),
             onPressed: () {
-              Navigator.of(context).pop(true);
+              context.goBack(true);
             },
           ),
         ],
@@ -119,7 +119,7 @@ class Dialogs {
               cancelButton,
               style: Theme.of(context).textTheme.button.copyWith(color: Colors.black87),
             ),
-            onPressed: Get.back,
+            onPressed: () => context.goBack(),
           ),
           FlatButton(
             child: const Text(Dictionary.salvar),
@@ -127,7 +127,7 @@ class Dialogs {
               final state = _formKey.currentState;
               if (state.validate()) {
                 state.save();
-                Get.back(result: initValue);
+                context.goBack(initValue);
               }
             },
           ),
@@ -152,7 +152,7 @@ class Dialogs {
           for (int i = 0; i < options.length; i++)
             SimpleDialogOption(
               child: Text(options[i]),
-              onPressed: () => navigator.pop(i),
+              onPressed: () => context.goBack(i),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             )
         ],

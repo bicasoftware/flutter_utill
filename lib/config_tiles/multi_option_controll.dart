@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 class MultiOptionControll extends StatelessWidget {
   const MultiOptionControll({
@@ -22,6 +21,7 @@ class MultiOptionControll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -30,20 +30,20 @@ class MultiOptionControll extends StatelessWidget {
           child: Text(
             label,
             textAlign: TextAlign.start,
-            style: Get.textTheme.subtitle2,
+            style: theme.textTheme.subtitle2,
           ),
         ),
         Container(
           width: double.maxFinite,
           padding: const EdgeInsets.only(bottom: 16),
           child: CupertinoSegmentedControl<int>(
-            pressedColor: Get.theme.cardColor,
+            pressedColor: theme.cardColor,
             groupValue: initValue,
             onValueChanged: onValueChanged,
             children: children,
             selectedColor: selectedColor,
             borderColor: borderColor,
-            unselectedColor: Get.theme.cardColor,
+            unselectedColor: theme.cardColor,
           ),
         ),
       ],
