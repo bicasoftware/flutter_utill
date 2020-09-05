@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_utils/config_tiles/error_text.dart';
 
 class TextTile extends FormField<String> {
   TextTile({
@@ -43,21 +44,8 @@ class TextTile extends FormField<String> {
                   ),
                 ),
               ),
-              subtitle: state.hasError ? _ErrorText(state.errorText) : null,
+              subtitle: state.hasError ? ErrorText(state.errorText) : null,
             );
           },
         );
-}
-
-class _ErrorText extends StatelessWidget {
-  const _ErrorText(this.errorText, {Key key}) : super(key: key);
-  final String errorText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      errorText,
-      style: Theme.of(context).textTheme.caption.copyWith(color: Colors.red),
-    );
-  }
 }
