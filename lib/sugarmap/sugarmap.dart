@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 
 extension Sugarmap on Map<String, Object> {
-  int asInt(String key) => int.tryParse(this[key]);
-  double asDouble(String key) => double.tryParse(this[key]);
+  int asInt(String key) => int.tryParse(this[key] as String);
+  double asDouble(String key) => double.tryParse(this[key]  as String);
   String asString(String key) => this[key] as String;
 
   bool asBoolFromInt(String key, [int trueValue = 1]) {
