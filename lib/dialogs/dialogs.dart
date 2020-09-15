@@ -74,10 +74,13 @@ class Dialogs {
     @required String label,
     @required String title,
     @required int maxLength,
+    VoidCallback onClean,
+    Icon sufixIcon,
     String confirmButton = Dictionary.salvar,
     String cancelButton = Dictionary.cancelar,
   }) async {
     final _formKey = GlobalKey<FormState>();
+    final controller = TextEditingController(text: initValue);
 
     return await showDialog(
       context: context,
@@ -90,6 +93,8 @@ class Dialogs {
           child: Form(
             key: _formKey,
             child: TextFormField(
+              controller: controller,
+              autofocus: true,
               inputFormatters: [
                 WhitelistingTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(maxLength),
@@ -97,9 +102,12 @@ class Dialogs {
               decoration: InputDecoration(
                 hintText: "9999",
                 labelText: label,
+                suffixIcon: IconButton(
+                  icon: sufixIcon ?? Icon(Icons.clear),
+                  onPressed: onClean ?? controller.clear,
+                ),
               ),
               keyboardType: TextInputType.number,
-              initialValue: initValue,
               onSaved: (s) {
                 initValue = s;
               },
