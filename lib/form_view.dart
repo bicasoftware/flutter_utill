@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_utils/flutter_utils.dart';
-import 'package:flutter_utils/context_helper.dart';
+import 'package:flutter_utils/navigation/drive.dart';
 
 mixin WillPopForm<T extends StatefulWidget> on State<T> {
   GlobalKey<FormState> _formKey;
@@ -41,7 +41,8 @@ mixin WillPopForm<T extends StatefulWidget> on State<T> {
   }) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      context.goBack(resultData);
+      Drive.back(resultData);
+      // context.goBack(resultData);
     }
   }
 }

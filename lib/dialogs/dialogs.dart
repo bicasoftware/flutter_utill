@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_utils/dictionary.dart';
 import 'package:flutter_utils/context_helper.dart';
+import 'package:flutter_utils/navigation/drive.dart';
 
 class Dialogs {
   static Future<void> showAwaitingDialog({
@@ -54,13 +55,13 @@ class Dialogs {
               style: context.textTheme.button.copyWith(color: Colors.black87),
             ),
             onPressed: () {
-              context.goBack(false);
+              Drive.back(false);
             },
           ),
           FlatButton(
             child: Text(positiveCaption),
             onPressed: () {
-              context.goBack(true);
+              Drive.back(true);
             },
           ),
         ],
@@ -127,7 +128,7 @@ class Dialogs {
               cancelButton,
               style: Theme.of(context).textTheme.button.copyWith(color: Colors.black87),
             ),
-            onPressed: () => context.goBack(),
+            onPressed: () => Drive.back(),
           ),
           FlatButton(
             child: const Text(Dictionary.salvar),
@@ -135,7 +136,7 @@ class Dialogs {
               final state = _formKey.currentState;
               if (state.validate()) {
                 state.save();
-                context.goBack(initValue);
+                Drive.back(initValue);
               }
             },
           ),
@@ -160,7 +161,7 @@ class Dialogs {
           for (int i = 0; i < options.length; i++)
             SimpleDialogOption(
               child: Text(options[i]),
-              onPressed: () => context.goBack(i),
+              onPressed: () => Drive.back(i),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             )
         ],
