@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_utils/dictionary.dart';
 import 'package:flutter_utils/context_helper.dart';
-import 'package:flutter_utils/navigation/drive.dart';
+import 'package:flutter_utils/context/drive.dart';
 
 class Dialogs {
   static Future<void> showAwaitingDialog({
@@ -97,7 +97,7 @@ class Dialogs {
               controller: controller,
               autofocus: true,
               inputFormatters: [
-                WhitelistingTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(maxLength),
               ],
               decoration: InputDecoration(

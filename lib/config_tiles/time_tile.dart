@@ -4,12 +4,12 @@ import 'package:flutter_utils/config_tiles/error_text.dart';
 
 class TimeTile extends FormField<TimeOfDay> {
   TimeTile({
-    @required String beginLabel,
-    @required String endLabel,
     @required TimeOfDay initialTime,
     @required FormFieldSetter<TimeOfDay> onSaved,
     FormFieldSetter<TimeOfDay> onChanged,
-    String errorMessage,
+    String horaLabel: "Hora",
+    String minuteLabel: "Minutos",
+    String errorMessage: "Os valores de minuto e hora devem ser adicionados",
   }) : super(
           validator: (TimeOfDay t) {
             if (t.hour != null && t.minute != null) {
@@ -26,52 +26,67 @@ class TimeTile extends FormField<TimeOfDay> {
           },
           onSaved: onSaved,
           initialValue: initialTime,
-          autovalidate: false,
           builder: (FormFieldState<TimeOfDay> state) {
             return Container(
               width: double.maxFinite,
-              // height: 86,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              height: 80,
+              color: Colors.red,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Row(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
-                      _TimeTileText(beginLabel),
-                      SizedBox(width: 8),
-                      _TimeTileText(endLabel),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      _TimeTextBox(
-                        hint: "18",
-                        maxValue: 23,
-                        value: state.value.hour,
-                        onChange: (String s) {
-                          final newTime =
-                              TimeOfDay(hour: int.tryParse(s), minute: state.value.minute);
-                          state.didChange(newTime);
-                          onChanged(newTime);
-                        },
+                      Column(
+                        children: [
+                          _TimeTextBox(
+                            hint: "18",
+                            maxValue: 23,
+                            value: state.value.hour,
+                            onChange: (String s) {
+                              final newTime =
+                                  TimeOfDay(hour: int.tryParse(s), minute: state.value.minute);
+                              state.didChange(newTime);
+                              onChanged(newTime);
+                            },
+                          ),
+                          _TimeTileText(minuteLabel),
+                        ],
                       ),
-                      SizedBox(width: 4),
-                      Text(":", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                      SizedBox(width: 4),
-                      _TimeTextBox(
-                        hint: "00",
-                        maxValue: 59,
-                        value: state.value.minute,
-                        onChange: (s) {
-                          final newTime =
-                              TimeOfDay(hour: state.value.hour, minute: int.tryParse(s));
-                          state.didChange(newTime);
-                          onChanged(newTime);
-                        },
-                      ),
+                      /* Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          _TimeTileText(horaLabel),
+                          _TimeTextBox(
+                            hint: "18",
+                            maxValue: 23,
+                            value: state.value.hour,
+                            onChange: (String s) {
+                              final newTime =
+                                  TimeOfDay(hour: int.tryParse(s), minute: state.value.minute);
+                              state.didChange(newTime);
+                              onChanged(newTime);
+                            },
+                          ),
+                        ],
+                      ), */
+
+                      /* Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          _TimeTileText(minuteLabel),
+                          _TimeTextBox(
+                            hint: "00",
+                            maxValue: 59,
+                            value: state.value.minute,
+                            onChange: (s) {
+                              final newTime =
+                                  TimeOfDay(hour: state.value.hour, minute: int.tryParse(s));
+                              state.didChange(newTime);
+                              onChanged(newTime);
+                            },
+                          ),
+                        ],
+                      ), */
                     ],
                   ),
                   Container(
@@ -105,28 +120,26 @@ class _TimeTextBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextFormField(
-        initialValue: value.toString().padLeft(2, "0"),
-        style: TextStyle(
-          fontSize: 25,
-        ),
-        decoration: InputDecoration(
-          hintText: hint,
-          border: InputBorder.none,
-          counterText: "",
-          fillColor: Colors.grey[100],
-          filled: true,
-        ),
-        keyboardType: TextInputType.number,
-        maxLines: 1,
-        maxLength: 2,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(2),
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        onChanged: onChange,
+    return TextFormField(
+      initialValue: value.toString().padLeft(2, "0"),
+      style: TextStyle(
+        fontSize: 25,
       ),
+      decoration: InputDecoration(
+        hintText: hint,
+        border: InputBorder.none,
+        counterText: "",
+        fillColor: Colors.grey[100],
+        filled: true,
+      ),
+      keyboardType: TextInputType.number,
+      maxLines: 1,
+      maxLength: 2,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(2),
+        FilteringTextInputFormatter.digitsOnly
+      ],
+      onChanged: onChange,
     );
   }
 }
@@ -139,8 +152,6 @@ class _TimeTileText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
-      child: Text(label, style: theme.textTheme.button.copyWith(fontWeight: FontWeight.normal)),
-    );
+    return Text(label, style: theme.textTheme.overline);
   }
 }

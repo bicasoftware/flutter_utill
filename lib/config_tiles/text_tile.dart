@@ -19,7 +19,6 @@ class TextTile extends FormField<String> {
           // onSaved: onSaved,
           validator: validator,
           initialValue: initialValue,
-          autovalidate: autoValidate,
           builder: (FormFieldState<String> state) {
             return ListTile(
               leading: icon,
