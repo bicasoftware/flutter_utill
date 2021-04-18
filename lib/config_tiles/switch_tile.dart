@@ -3,11 +3,11 @@ import 'package:flutter_utils/config_tiles/base_config_tile.dart';
 
 class SwitchTile extends StatelessWidget {
   const SwitchTile({
-    @required this.initialValue,
-    @required this.label,
-    @required this.icon,
-    @required this.onChanged,
-    Key key,
+    required this.initialValue,
+    required this.label,
+    required this.icon,
+    required this.onChanged,
+    Key? key,
   }) : super(key: key);
 
   final bool initialValue;

@@ -4,14 +4,13 @@ import 'package:flutter_utils/config_tiles/error_text.dart';
 
 class TextTile extends FormField<String> {
   TextTile({
-    @required Icon icon,
-    @required String label,
-    @required String hint,
-    // @required FormFieldSetter<String> onSaved,
-    @required FormFieldSetter<String> onChanged,
-    @required FormFieldValidator<String> validator,
-    @required String initialValue,
-    List<TextInputFormatter> inputFormatters,
+    required Icon icon,
+    required String label,
+    required String hint,
+    required FormFieldSetter<String> onChanged,
+    required FormFieldValidator<String> validator,
+    required String initialValue,
+    List<TextInputFormatter>? inputFormatters,
     TextInputType inputType = TextInputType.text,
     double trailingWidth = 120,
     bool autoValidate = false,
@@ -43,7 +42,7 @@ class TextTile extends FormField<String> {
                   ),
                 ),
               ),
-              subtitle: state.hasError ? ErrorText(state.errorText) : null,
+              subtitle: state.hasError ? ErrorText(state.errorText!) : null,
             );
           },
         );

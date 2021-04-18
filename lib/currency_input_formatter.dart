@@ -2,7 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class CurrencyInputFormatter extends TextInputFormatter {
-  CurrencyInputFormatter({this.maxDigits});
+  CurrencyInputFormatter({
+    this.maxDigits = 2,
+  });
   final int maxDigits;
 
   static String formatValue(double valor) {
@@ -19,7 +21,7 @@ class CurrencyInputFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    if (maxDigits != null && newValue.selection.baseOffset > maxDigits) {
+    if (newValue.selection.baseOffset > maxDigits) {
       return oldValue;
     }
 

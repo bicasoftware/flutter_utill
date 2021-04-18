@@ -4,28 +4,27 @@ import 'base_config_tile.dart';
 
 class DropdownTile<T> extends StatelessWidget {
   const DropdownTile({
-    @required this.label,
-    @required this.icon,
-    @required this.initialValue,
-    @required this.items,
-    @required this.onChanged,
+    required this.label,
+    required this.icon,
+    required this.initialValue,
+    required this.items,
+    required this.onChanged,
     this.trailingWidth,
     this.formatter,
-
-    Key key,
+    Key? key,
   }) : super(key: key);
 
-  final double trailingWidth;
+  final double? trailingWidth;
   final String label;
   final Icon icon;
   final T initialValue;
   final List<T> items;
 
   ///Função que formata o valor exibido no Dropdownbutton e nas child
-  final String Function(T item) formatter;
+  final String Function(T item)? formatter;
 
   ///Callback ao selecionar alguma opção
-  final void Function(T value) onChanged;
+  final void Function(T? value) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class DropdownTile<T> extends StatelessWidget {
               DropdownMenuItem(
                 value: item,
                 child: Text(
-                  formatter != null ? formatter(item) : item.toString(),
+                  formatter != null ? formatter!(item) : item.toString(),
                   textAlign: TextAlign.center,
                 ),
               ),

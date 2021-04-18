@@ -6,18 +6,18 @@ mixin Messenger<T extends Widget> {
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
   void showMessage(
-    String message, {
-    Duration duration,
-    VoidCallback onPressed,
-    String actionLabel,
-  }) {
-    _scaffoldKey.currentState.showSnackBar(
+    String message, [
+    Duration? duration,
+    VoidCallback? onPressed,
+    String? actionLabel,
+  ]) {
+    ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(
       SnackBar(
         content: Text(message),
         duration: duration ?? Duration(seconds: 1),
         action: onPressed != null
             ? SnackBarAction(
-                label: actionLabel,
+                label: actionLabel!,
                 onPressed: onPressed,
               )
             : null,

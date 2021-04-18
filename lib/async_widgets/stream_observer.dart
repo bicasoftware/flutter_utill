@@ -3,20 +3,20 @@ import 'package:flutter_utils/async_widgets/awaiting_container.dart';
 
 class StreamObserver<T> extends StatelessWidget {
   final Stream<T> stream;
-  final Widget Function(BuildContext context, T data) onSuccess;
-  final Widget Function(BuildContext context) onAwaiting;
-  final Widget Function(BuildContext context, Error erro) onError;
+  final Widget Function(BuildContext context, T? data) onSuccess;
+  final Widget Function(BuildContext context)? onAwaiting;
+  final Widget Function(BuildContext context, Object? erro)? onError;
 
   Function get _defaultError => (context, error) => Center(child: Text(error));
 
   Function get _defaultAwaiting => (context) => AwaitingContainer();
 
   const StreamObserver({
-    Key key,
-    @required this.stream,
-    @required this.onSuccess,
+    required this.stream,
+    required this.onSuccess,
     this.onAwaiting,
     this.onError,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,11 +27,13 @@ class StreamObserver<T> extends StatelessWidget {
         if (snapshot.hasError) {
           return onError == null
               ? _defaultError(context, snapshot.error)
-              : onError(context, snapshot.error);
+              : onError!(context, snapshot.error);
         }
 
         if (!snapshot.hasData) {
-          return onAwaiting == null ? _defaultAwaiting(context) : onAwaiting(context);
+          return onAwaiting == null
+              ? _defaultAwaiting(context)
+              : onAwaiting!(context);
         } else {
           return onSuccess(context, snapshot.data);
         }

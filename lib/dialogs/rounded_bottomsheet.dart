@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 Future<T> showRoundedBottomSheet<T>({
-  @required BuildContext context,
-  @required Widget child,
-  double radius,
+  required BuildContext context,
+  required Widget child,
+  double radius = 8,
 }) async {
   return await showModalBottomSheet(
     context: context,

@@ -4,11 +4,11 @@ import 'package:flutter_utils/dictionary.dart';
 
 class TimePickerTile extends StatelessWidget {
   const TimePickerTile({
-    Key key,
-    this.label,
-    this.initialTime,
-    this.icon,
-    this.onTimeSet,
+    required this.label,
+    required this.initialTime,
+    required this.icon,
+    required this.onTimeSet,
+    Key? key,
   }) : super(key: key);
 
   final String label;

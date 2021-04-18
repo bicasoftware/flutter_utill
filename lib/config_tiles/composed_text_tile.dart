@@ -3,24 +3,24 @@ import 'package:flutter/services.dart';
 
 class ComposedTextTile extends StatelessWidget {
   const ComposedTextTile({
-    @required this.label,
-    @required this.hint,
-    @required this.initialValue,
-    @required this.validator,
-    @required this.icon,
-    @required this.onChanged,
-    this.inputFormatters,
+    required this.label,
+    required this.hint,
+    required this.initialValue,
+    required this.validator,
+    required this.icon,
+    required this.onChanged,
     this.inputType = TextInputType.text,
     this.maxLength = 10,
-    Key key,
+    this.inputFormatters,
+    Key? key,
   }) : super(key: key);
 
   final Icon icon;
   final int maxLength;
   final String label, hint;
   final String initialValue;
-  final Function(String validate) validator, onChanged;
-  final List<TextInputFormatter> inputFormatters;
+  final String Function(String? validate) validator, onChanged;
+  final List<TextInputFormatter>? inputFormatters;
   final TextInputType inputType;
 
   @override

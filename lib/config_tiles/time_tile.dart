@@ -4,18 +4,20 @@ import 'package:flutter_utils/config_tiles/error_text.dart';
 
 class TimeTile extends FormField<TimeOfDay> {
   TimeTile({
-    @required TimeOfDay initialTime,
-    @required FormFieldSetter<TimeOfDay> onSaved,
-    FormFieldSetter<TimeOfDay> onChanged,
+    required TimeOfDay initialTime,
+    required FormFieldSetter<TimeOfDay> onSaved,
+    required FormFieldSetter<TimeOfDay> onChanged,
     String horaLabel: "Hora",
     String minuteLabel: "Minutos",
     String errorMessage: "Os valores de minuto e hora devem ser adicionados",
   }) : super(
-          validator: (TimeOfDay t) {
-            if (t.hour != null && t.minute != null) {
-              if (!(t.hour >= 0 && t.hour < 24)) {
+          validator: (TimeOfDay? t) {
+            final h = t?.hour;
+            final m = t?.minute;
+            if (h != null && m != null) {
+              if (!(h >= 0 && h < 24)) {
                 return "Hora inválida";
-              } else if (!(t.minute >= 0 && t.minute < 60)) {
+              } else if (!(m >= 0 && m < 60)) {
                 return 'Minutos inválidos';
               } else {
                 return null;
@@ -41,10 +43,12 @@ class TimeTile extends FormField<TimeOfDay> {
                           _TimeTextBox(
                             hint: "18",
                             maxValue: 23,
-                            value: state.value.hour,
+                            value: state.value?.hour ?? -1,
                             onChange: (String s) {
-                              final newTime =
-                                  TimeOfDay(hour: int.tryParse(s), minute: state.value.minute);
+                              final newTime = TimeOfDay(
+                                hour: int.tryParse(s)!,
+                                minute: state.value?.minute ?? -1,
+                              );
                               state.didChange(newTime);
                               onChanged(newTime);
                             },
@@ -52,48 +56,13 @@ class TimeTile extends FormField<TimeOfDay> {
                           _TimeTileText(minuteLabel),
                         ],
                       ),
-                      /* Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          _TimeTileText(horaLabel),
-                          _TimeTextBox(
-                            hint: "18",
-                            maxValue: 23,
-                            value: state.value.hour,
-                            onChange: (String s) {
-                              final newTime =
-                                  TimeOfDay(hour: int.tryParse(s), minute: state.value.minute);
-                              state.didChange(newTime);
-                              onChanged(newTime);
-                            },
-                          ),
-                        ],
-                      ), */
-
-                      /* Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          _TimeTileText(minuteLabel),
-                          _TimeTextBox(
-                            hint: "00",
-                            maxValue: 59,
-                            value: state.value.minute,
-                            onChange: (s) {
-                              final newTime =
-                                  TimeOfDay(hour: state.value.hour, minute: int.tryParse(s));
-                              state.didChange(newTime);
-                              onChanged(newTime);
-                            },
-                          ),
-                        ],
-                      ), */
                     ],
                   ),
                   Container(
                     width: double.maxFinite,
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: ErrorText(
-                      state.hasError ? state.errorText : "",
+                      state.errorText ?? "",
                       textAlign: TextAlign.start,
                     ),
                   ),
@@ -106,11 +75,11 @@ class TimeTile extends FormField<TimeOfDay> {
 
 class _TimeTextBox extends StatelessWidget {
   const _TimeTextBox({
-    @required this.hint,
-    @required this.maxValue,
-    @required this.value,
-    @required this.onChange,
-    Key key,
+    required this.hint,
+    required this.maxValue,
+    required this.value,
+    required this.onChange,
+    Key? key,
   }) : super(key: key);
 
   final String hint;

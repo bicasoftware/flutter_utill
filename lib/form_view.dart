@@ -3,7 +3,7 @@ import 'package:flutter_utils/flutter_utils.dart';
 import 'package:flutter_utils/context/drive.dart';
 
 mixin WillPopForm<T extends StatefulWidget> on State<T> {
-  GlobalKey<FormState> _formKey;
+  late GlobalKey<FormState> _formKey;
 
   GlobalKey<FormState> get formKey => _formKey;
 
@@ -22,12 +22,10 @@ mixin WillPopForm<T extends StatefulWidget> on State<T> {
   Future<bool> willPop() async {
     if (isNewRecord) {
       return true;
-    } else if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    } else if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
       if (checkForChanges) {
-        final r = await Dialogs.showConfirmationDialog(context: context);
-
-        return r ?? true;
+        return await Dialogs.showConfirmationDialog(context: context);
       } else {
         return true;
       }
@@ -39,8 +37,8 @@ mixin WillPopForm<T extends StatefulWidget> on State<T> {
   void saveForm({
     @required dynamic resultData,
   }) {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
       Drive.back(resultData);
       // context.goBack(resultData);
     }

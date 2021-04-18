@@ -4,13 +4,13 @@ import 'package:flutter/widgets.dart';
 
 class MultiOptionControll extends StatelessWidget {
   const MultiOptionControll({
-    @required this.initValue,
-    @required this.onValueChanged,
-    @required this.label,
-    @required this.children,
-    @required this.selectedColor,
-    @required this.borderColor,
-    Key key,
+    required this.initValue,
+    required this.onValueChanged,
+    required this.label,
+    required this.children,
+    required this.selectedColor,
+    required this.borderColor,
+    Key? key,
   }) : super(key: key);
 
   final int initValue;

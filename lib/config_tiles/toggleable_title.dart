@@ -4,10 +4,10 @@ import 'package:flutter_utils/context_helper.dart';
 
 class ToggleableTile extends StatelessWidget {
   const ToggleableTile({
-    @required this.labels,
-    @required this.isSelected,
-    @required this.onPressed,
-    Key key,
+    required this.labels,
+    required this.isSelected,
+    required this.onPressed,
+    Key? key,
   })  : assert(labels.length == isSelected.length),
         super(key: key);
 
@@ -29,7 +29,10 @@ class ToggleableTile extends StatelessWidget {
                 labels[i],
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: isSelected[i] ? Colors.white : context.theme.primaryColor),
+                style: TextStyle(
+                    color: isSelected[i]
+                        ? Colors.white
+                        : context.theme.primaryColor),
               ),
             )
         ],
@@ -40,7 +43,8 @@ class ToggleableTile extends StatelessWidget {
         selectedColor: context.theme.primaryColor,
         selectedBorderColor: context.theme.primaryColor,
         fillColor: context.theme.primaryColor,
-        textStyle: context.textTheme.button.copyWith(color: context.theme.primaryColor),
+        textStyle: context.textTheme.button
+            ?.copyWith(color: context.theme.primaryColor),
       ),
     );
   }

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ErrorText extends StatelessWidget {
-  const ErrorText(this.errorText, {Key key, this.textAlign}) : super(key: key);
+  const ErrorText(
+    this.errorText, {
+    this.textAlign,
+    Key? key,
+  }) : super(key: key);
   final String errorText;
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       errorText,
-      style: Theme.of(context).textTheme.caption.copyWith(color: Colors.red),
+      style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.red),
       textAlign: textAlign,
     );
   }

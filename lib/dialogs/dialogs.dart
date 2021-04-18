@@ -6,9 +6,9 @@ import 'package:flutter_utils/context/drive.dart';
 
 class Dialogs {
   static Future<void> showAwaitingDialog({
-    BuildContext context,
-    String awaitingText,
-    GlobalKey key,
+    required BuildContext context,
+    required String awaitingText,
+    required GlobalKey key,
   }) async {
     return showDialog(
       context: context,
@@ -34,7 +34,7 @@ class Dialogs {
   }
 
   static Future<bool> showConfirmationDialog({
-    @required BuildContext context,
+    required BuildContext context,
     String title = Dictionary.atencao,
     String message = Dictionary.descartarAlteracoes,
     String negativeCaption = Dictionary.nao,
@@ -42,23 +42,23 @@ class Dialogs {
   }) async {
     return await showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (_) => AlertDialog(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         title: Text(title),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(
               negativeCaption,
-              style: context.textTheme.button.copyWith(color: Colors.black87),
+              style: context.textTheme.button?.copyWith(color: Colors.black87),
             ),
             onPressed: () {
               Drive.back(false);
             },
           ),
-          FlatButton(
+          TextButton(
             child: Text(positiveCaption),
             onPressed: () {
               Drive.back(true);
@@ -70,13 +70,13 @@ class Dialogs {
   }
 
   static Future<String> showIntegerDialog({
-    @required BuildContext context,
-    @required String initValue,
-    @required String label,
-    @required String title,
-    @required int maxLength,
-    VoidCallback onClean,
-    Icon sufixIcon,
+    required BuildContext context,
+    required String initValue,
+    required String label,
+    required String title,
+    required int maxLength,
+    VoidCallback? onClean,
+    Icon? sufixIcon,
     String confirmButton = Dictionary.salvar,
     String cancelButton = Dictionary.cancelar,
   }) async {
@@ -88,7 +88,8 @@ class Dialogs {
       barrierDismissible: false,
       builder: (_) => AlertDialog(
         title: Text(title),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))),
         content: Container(
           padding: const EdgeInsets.all(16),
           child: Form(
@@ -109,11 +110,11 @@ class Dialogs {
                 ),
               ),
               keyboardType: TextInputType.number,
-              onSaved: (s) {
-                initValue = s;
+              onSaved: (String? s) {
+                initValue = s ?? "";
               },
               validator: (s) {
-                if (int.tryParse(s) == null) {
+                if (int.tryParse(s!) == null) {
                   return Messages.numeroInvalido;
                 } else {
                   return null;
@@ -123,19 +124,22 @@ class Dialogs {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(
               cancelButton,
-              style: Theme.of(context).textTheme.button.copyWith(color: Colors.black87),
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  ?.copyWith(color: Colors.black87),
             ),
             onPressed: () => Drive.back(),
           ),
-          FlatButton(
+          TextButton(
             child: const Text(Dictionary.salvar),
             onPressed: () {
               final state = _formKey.currentState;
-              if (state.validate()) {
-                state.save();
+              if (state?.validate() ?? false) {
+                state?.save();
                 Drive.back(initValue);
               }
             },
@@ -146,13 +150,13 @@ class Dialogs {
   }
 
   static Future<int> showOptionsDialog({
-    @required BuildContext context,
-    @required List<String> options,
-    @required String title,
+    required BuildContext context,
+    required List<String> options,
+    required String title,
   }) async {
     return await showDialog(
       context: context,
-      child: SimpleDialog(
+      builder: (_) => SimpleDialog(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),

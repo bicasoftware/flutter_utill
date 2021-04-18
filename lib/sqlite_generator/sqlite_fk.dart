@@ -1,18 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_utils/sqlite_generator/constraint_types.dart';
 
 class SqliteFK {
   SqliteFK({
-    @required this.referenceTable,
-    @required this.slaveColumn,
-    @required this.masterColumn,
-    @required this.onDelete,
-    @required this.onUpdate,
-  })  : assert(referenceTable != null),
-        assert(slaveColumn != null),
-        assert(masterColumn != null),
-        assert(onDelete != null),
-        assert(onUpdate != null);
+    required this.referenceTable,
+    required this.slaveColumn,
+    required this.masterColumn,
+    required this.onDelete,
+    required this.onUpdate,
+  });
 
   final String referenceTable, slaveColumn, masterColumn;
   final ConstraintTypes onDelete, onUpdate;
@@ -21,19 +16,14 @@ class SqliteFK {
     switch (constraint) {
       case ConstraintTypes.SET_NULL:
         return "SET NULL";
-        break;
       case ConstraintTypes.SET_DEFAULT:
         return "SET DEFAULT";
-        break;
       case ConstraintTypes.RESTRICT:
         return "RESTRICT";
-        break;
       case ConstraintTypes.NO_ACTION:
         return "NO ACTION";
-        break;
       case ConstraintTypes.CASCADE:
         return "CASCADE";
-        break;
       default:
         return "CASCADE";
     }

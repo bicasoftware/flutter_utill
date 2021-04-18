@@ -14,7 +14,7 @@ mixin SqliteColumnHelper {
     return value;
   }
 
-  String hasDefault(Object defaultValue) {
+  String hasDefault(Object? defaultValue) {
     return defaultValue != null ? "DEFAULT ${_secureEscape(defaultValue)}" : "";
   }
 
@@ -22,19 +22,14 @@ mixin SqliteColumnHelper {
     switch (type) {
       case ColumnTypes.PRIMARY_KEY:
         return "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT";
-        break;
       case ColumnTypes.INTEGER:
         return "INTEGER";
-        break;
       case ColumnTypes.REAL:
         return "REAL";
-        break;
       case ColumnTypes.TEXT:
         return "TEXT";
-        break;
       default:
         return "TEXT";
-        break;
     }
   }
 }

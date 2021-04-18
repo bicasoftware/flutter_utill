@@ -9,7 +9,7 @@ class Drive {
   Drive._();
 
   static final Drive _instance = Drive._();
-  static GlobalKey<NavigatorState> _driveKey;
+  static late final GlobalKey<NavigatorState>? _driveKey;
 
   GlobalKey<NavigatorState> get key {
     return _driveKey ??= _init();
@@ -19,8 +19,8 @@ class Drive {
     return _driveKey = GlobalKey<NavigatorState>();
   }
 
-  static Future<T> to<T>(Widget place, [Object arguments]) async {
-    return await Drive().key.currentState.push(
+  static Future<T?> to<T>(Widget place, [Object? arguments]) async {
+    return await Drive().key.currentState?.push(
           MaterialPageRoute<T>(
             builder: (BuildContext c) => place,
             settings: RouteSettings(arguments: arguments),
@@ -28,12 +28,15 @@ class Drive {
         );
   }
 
-  static Future<T> toNamed<T>(String routeName, [Object arguments]) async {
-    return await Drive().key.currentState.pushNamed<T>(routeName, arguments: arguments);
+  static Future<T?> toNamed<T>(String routeName, [Object? arguments]) async {
+    return await Drive()
+        .key
+        .currentState
+        ?.pushNamed<T>(routeName, arguments: arguments);
   }
 
-  static Future<T> replace<T>(Widget place, [Object arguments]) async {
-    return await Drive().key.currentState.pushReplacement(
+  static Future<T?> replace<T>(Widget place, [Object? arguments]) async {
+    return await Drive().key.currentState?.pushReplacement(
           MaterialPageRoute<T>(
             builder: (BuildContext c) => place,
             settings: RouteSettings(arguments: arguments),
@@ -42,10 +45,10 @@ class Drive {
   }
 
   static void backUntil<T>(String lastRoute) async {
-    return Drive().key.currentState.popUntil(ModalRoute.withName(lastRoute));
+    return Drive().key.currentState?.popUntil(ModalRoute.withName(lastRoute));
   }
 
-  static Future<void> back<T extends Object>([T result]) async {
-    Drive().key.currentState.pop<T>(result);
+  static Future<void> back<T extends Object>([T? result]) async {
+    Drive().key.currentState?.pop<T>(result);
   }
 }
